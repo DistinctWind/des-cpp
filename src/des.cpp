@@ -14,8 +14,11 @@ std::bitset<64> des::ip(const std::bitset<64>& rhs) {
     return result;
 }
 
-std::bitset<64> ip_r(const std::bitset<64>& rhs) {
+std::bitset<64> des::ip_r(const std::bitset<64>& rhs) {
     std::bitset<64> result;
-    
+    for (int offset = 0; offset < 64; offset++) {
+        int target_index = ip_rt[offset] - 1;
+        result[offset] = rhs[target_index];
+    }
     return result;
 }
