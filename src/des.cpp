@@ -54,8 +54,30 @@ std::bitset<32> des::place(const std::bitset<32>& input) {
     return result;
 }
 
+std::bitset<4> sbox_for(int box, const std::bitset<6>& box_input) {
+    uint8_t row = box_input[0] << 1 | box_input[5];
+    uint8_t col = (box_input.to_ullong() >> 1) & 0xf;
+    
+    int s = des::s_t[box][row][col];
+    return s;
+}
+
+void writeResultOfBox(int box, const std::bitset<4>& box_output, std::bitset<32>& result) {
+    int start_index = box * 4;
+    for (int i = 0; i < 4; i++) {
+        int target_index = start_index + i;
+        result[target_index] = box_output[i];
+    }
+}
+
 std::bitset<32> des::select(const std::bitset<48>& input) {
-    return {};
+    std::bitset<32> result;
+    for (int box = 0; box < 8; box++) {
+        std::bitset<6> box_input = (input.to_ullong() >> (6 * box)) & 0x3f;
+        std::bitset<4> box_output = sbox_for(box, box_input);
+        writeResultOfBox(box, box_output, result);
+    }
+    return result;
 }
 
 std::pair<uint32_t, uint32_t> des::split(const std::bitset<64>& input) {
@@ -66,5 +88,5 @@ std::pair<uint32_t, uint32_t> des::split(const std::bitset<64>& input) {
 }
 
 std::bitset<64> des::merge(uint32_t l, uint32_t r) {
-    return {(uint64_t)r << 32 | l};
+    return {(uint64_t) r << 32 | l};
 }
