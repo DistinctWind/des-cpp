@@ -12,4 +12,10 @@ int add(int a, int b);
 std::bitset<64> ip(const std::bitset<64>& rhs);
 std::bitset<64> ip_r(const std::bitset<64>& rhs);
 
+std::bitset<64> round(const std::bitset<64>& input, const std::bitset<48>& k);
+std::bitset<48> extend(const std::bitset<32>& input);
+std::bitset<32> select(const std::bitset<48>& input);
+std::bitset<32> place(const std::bitset<32>& input);
+std::bitset<32> f(const std::bitset<32>& input);
+
 }
