@@ -53,3 +53,18 @@ std::bitset<32> des::place(const std::bitset<32>& input) {
     }
     return result;
 }
+
+std::bitset<32> des::select(const std::bitset<48>& input) {
+    return {};
+}
+
+std::pair<uint32_t, uint32_t> des::split(const std::bitset<64>& input) {
+    return {
+        input.to_ullong() & 0xffffffff,
+        input.to_ullong() >> 32
+    };
+}
+
+std::bitset<64> des::merge(uint32_t l, uint32_t r) {
+    return {(uint64_t)r << 32 | l};
+}
