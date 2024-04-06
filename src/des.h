@@ -16,6 +16,9 @@ std::bitset<64> round(const std::bitset<64>& input, const std::bitset<48>& k);
 std::bitset<48> extend(const std::bitset<32>& input);
 std::bitset<32> select(const std::bitset<48>& input);
 std::bitset<32> place(const std::bitset<32>& input);
-std::bitset<32> f(const std::bitset<32>& input);
+std::bitset<32> f(const std::bitset<32>& input, const std::bitset<48>& k);
+
+std::pair<uint32_t, uint32_t> split(const std::bitset<64>& input);
+std::bitset<64> merge(uint32_t l, uint32_t r);
 
 }
