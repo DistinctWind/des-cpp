@@ -26,13 +26,13 @@ TEST_CASE("SignificantBit", "[play]") {
 TEST_CASE("SplitBit", "[utils]") {
     std::bitset<64> t{0x1122334455667788};
     auto [l, r] = des::split(t);
-    REQUIRE(l == 0x55667788);
-    REQUIRE(r == 0x11223344);
+    REQUIRE(l == 0x11223344);
+    REQUIRE(r == 0x55667788);
 }
 
 TEST_CASE("MergeBit", "[utils]") {
-    uint32_t l = 0x55667788;
-    uint32_t r = 0x11223344;
+    uint32_t l = 0x11223344;
+    uint32_t r = 0x55667788;
     std::bitset<64> result = des::merge(l, r);
     REQUIRE(result == 0x1122334455667788);
 }
@@ -41,4 +41,10 @@ TEST_CASE("SplitThenMerge", "[utils]") {
     std::bitset<64> t{0x1122334455667788};
     auto [l, r] = des::split(t);
     REQUIRE(t == des::merge(l, r));
+}
+
+TEST_CASE("EncryptThenDecrypt", "[des]") {
+    std::bitset<64> t{0x1122334455667788};
+    std::bitset<64> k{0x8877665544332211};
+    REQUIRE(des::decrypt(des::encrypt(t, k), k) == t);
 }
