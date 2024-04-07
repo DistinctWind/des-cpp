@@ -120,7 +120,7 @@ std::bitset<56> des::rotl(const std::bitset<56>& input, int cnt) {
 
 std::bitset<48> des::get_actual_key_rnd(const std::bitset<64>& key, int rnd) {
     std::bitset<56> step_key = place_select1(key);
-    for (int i = 0; i < rnd; i++) {
+    for (int i = 0; i <= rnd; i++) {
         step_key = rotl(step_key, rotl_t[i]);
     }
     std::bitset<48> actual_key = place_select2(step_key);

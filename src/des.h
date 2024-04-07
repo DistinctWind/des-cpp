@@ -37,4 +37,13 @@ std::bitset<64> decrypt(const std::bitset<64>& encrypted, const std::bitset<64>&
 std::bitset<56> rotl(const std::bitset<56>& input, int cnt);
 std::bitset<48> get_actual_key_rnd(const std::bitset<64>& key, int rnd);
 
+template<size_t N>
+std::bitset<N> revert(const std::bitset<N>& input) {
+    std::bitset<N> result;
+    for (int i = 0; i < N; i++) {
+        result[i] = input[N - i - 1];
+    }
+    return result;
+}
+
 }
